@@ -19,18 +19,16 @@ export default class Login extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: e.target.username.value,
+                email: e.target.email.value,
                 password: e.target.password.value
             })
         })
         .then(response => response.json())
         .then(data => {
-            // console.log(data)
             if(typeof data.token !== 'undefined') {
                 localStorage.setItem('token', data.token);
                 
                 const url = window.decodeURIComponent(this.props.location.search);
-                console.log(url)
                 this.props.history.push('/' + url.split('/')[1]);
             } else {
                 this.setState({
@@ -50,7 +48,7 @@ export default class Login extends Component {
                 <h2>Login</h2>
                 <form onSubmit={ this.onSubmit }>
                     <div>
-                        <input name='username' type='text' placeholder='username' />
+                        <input name='email' type='email' placeholder='email' />
                     </div>
                     <div>
                         <input name='password' type='password' placeholder='password' />
